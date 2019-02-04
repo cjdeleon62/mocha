@@ -3,15 +3,8 @@
 var helpers = require('../helpers');
 var invokeMocha = helpers.invokeMocha;
 var DEFAULT_FIXTURE = helpers.DEFAULT_FIXTURE;
-var platform = require('os').platform();
 
 describe('--debug', function() {
-  before(function() {
-    if (platform === 'win32') {
-      this.skip();
-    }
-  });
-
   describe('Node.js v8+', function() {
     before(function() {
       if (process.version.substring(0, 2) === 'v6') {
@@ -54,8 +47,8 @@ describe('--debug', function() {
 
       // debugger must be manually killed
       setTimeout(function() {
-        proc.kill('SIGINT');
-      }, 1000);
+        process.kill(proc.pid, 'SIGINT');
+      }, 2000);
     });
 
     it('should respect custom host/port', function(done) {
@@ -119,8 +112,8 @@ describe('--debug', function() {
 
       // debugger must be manually killed
       setTimeout(function() {
-        proc.kill('SIGINT');
-      }, 1000);
+        process.kill(proc.pid, 'SIGINT');
+      }, 2000);
     });
 
     it('should respect custom host/port', function(done) {
@@ -140,8 +133,8 @@ describe('--debug', function() {
       );
 
       setTimeout(function() {
-        proc.kill('SIGINT');
-      }, 1000);
+        process.kill(proc.pid, 'SIGINT');
+      }, 2000);
     });
   });
 });
